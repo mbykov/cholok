@@ -1,0 +1,41 @@
+{
+  "name": "jopa",
+  "version": "0.1.0",
+  "description": "fonetic transliteration for Tibetan",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run build && node dist/run",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV=production babel -s true src -d dist",
+    "clean": "rm -rf dist",
+    "run": "node dist/run",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbykov/antrax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mbykov/antrax/issues"
+  }
+}
