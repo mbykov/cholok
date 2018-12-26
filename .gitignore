@@ -7,7 +7,6 @@ coverage
 logs
 pids
 dist
-Junk
 _*.org
 Junk
-test/test-Junk
+test/Junk

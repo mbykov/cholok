@@ -1,10 +1,11 @@
 //
 
 let log = console.log
-let wf = process.argv.slice(2)[0] || 'བརྗོད་པ་';
+let str = process.argv.slice(2)[0] || 'བརྗོད་པ་'
+let cumul = process.argv.slice(3)[0]
 
-import hello from './index';
+import jolog from './index'
 
-let result = hello(wf);
+let result = jolog(str.trim(), cumul)
 
-log('HERE', result)
+log('JOLOG:', str, '-', result)

@@ -1,6 +1,6 @@
 {
-  "name": "jopa",
-  "version": "0.1.0",
+  "name": "cholok",
+  "version": "0.1.1",
   "description": "fonetic transliteration for Tibetan",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,9 @@
     "build": "cross-env NODE_ENV=production babel -s true src -d dist",
     "clean": "rm -rf dist",
     "run": "node dist/run",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test_": "echo \"Error: no test specified\" && exit 1",
+    "test_": "cross-env NODE_ENV=test mocha -g $FILTER -c -R dot -b --timeout 5000 'test/**/*.test.js' --compilers js:babel-register --check-leaks --no-deprecation",
+    "test": "cross-env NODE_ENV=test mocha -c -R spec -b 'test/test.js' --compilers js:babel-register --check-leaks --no-deprecation",
     "lint": "eslint src test"
   },
   "keywords": [],
@@ -24,12 +26,14 @@
     "dist"
   ],
   "dependencies": {
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "mocha": "^5.2.0",
+    "mocha-each": "^1.1.0"
   },
   "repository": {
     "type": "git",
