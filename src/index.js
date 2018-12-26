@@ -3,7 +3,7 @@ import _ from 'lodash'
 import {letter, lower, ralasa, yaralaa, vowel, wasur, kanatanapamaaralasa, kanapamara, tanalasa, tasa, umlaut, sa, sama, maa, la, a, voiced, nasalHigh, up2rows} from './lib/data'
 let log = console.log
 let tsek = '་'
-export default function jolog(str, cumul) {
+export default function cholok(str, cumul) {
   let result  = []
   let syllables = str.split(tsek)
   syllables.forEach(syl=> {
@@ -22,8 +22,17 @@ function syllable(str) {
   let letters = str.split('')
   let main, mains = []
   let prefix, superfix, prefs = []
-  let suffix, secsuf
+  let suffix, secsuf, avow
   let sufs = []
+
+  let ult = letters[letters.length-1]
+  if (letters.length > 3 && _.keys(vowel).includes(ult)) {
+    let penult = letters[letters.length-2]
+    if (a == penult) {
+      avow = ult
+      letters.pop()
+    }
+  }
 
   let vows = _.intersection(letters, _.keys(vowel))
   let vow, indexVow
@@ -127,6 +136,7 @@ function syllable(str) {
 
   let data = {point: point, prefix: prefix, superfix: superfix, main: main, subfix: subfix, vow: vow, suffix: suffix, secsuf: secsuf} // , isWasur: isWasur
   if (isWasur) data.wasur = true
+  if (avow) data.avow = avow
 
   for (let key in data) {
     if (!data[key]) delete data[key]
@@ -161,7 +171,7 @@ function translit(data, cumul) {
     let pref = letter[data.prefix]
     main = _.clone(letter[data.main])
     if (main.col == 3) main.trl = voiced[main.row]
-    else if (main.col == 4) main.trl = nasalHigh[main.row]
+    else if (main.col == 4 && main.row < 5) main.trl = nasalHigh[main.row]
     let apref = [pref.trl, 'ao'].join('')
     if (maa.includes(data.prefix)) {
       main.trl = ['n', main.trl].join('')
@@ -171,7 +181,7 @@ function translit(data, cumul) {
     } else {
       apref = [pref.trl, 'ao'].join('')
     }
-    if (data.prefix == 'ད' && data.main == 'བ') main.trl = 'w'
+    if (data.prefix == 'ད' && data.main == 'བ') main.trl = 'w' // excl: p->w
     stack.push(apref)
   }
 
@@ -203,6 +213,9 @@ function translit(data, cumul) {
     if (data.subfix == 'ྱ') { // YA
       if (main.row == 4) {
         res.main.trl = up2rows[main.col]
+        if (data.prefix == 'ད' && data.main == 'བ') { // excl: p->w->ya
+          main.trl = 'y'
+        }
       } else {
         res.main.trl = [res.main.trl, subfix.trl].join('')
       }
@@ -221,6 +234,7 @@ function translit(data, cumul) {
   if (data.vow) {
     let vow = _.clone(vowel[data.vow])
     stack.push(vow.descr)
+    if (data.prefix == 'ད' && data.main == 'བ' && !data.subfix) main.trl = '' // excl: p->w->u
     let mainvow = [main.trl, vow.trl].join('')
     res.vow = vow
     stack.push(mainvow)
@@ -239,10 +253,21 @@ function translit(data, cumul) {
     } else {
       log('IMPOSSIMBLE SUFFIX', data)
     }
-
     stack.push(asuf)
+    if (data.avow) {
+      let avow = vowel[data.avow]
+      stack.push(avow.descr)
+      stack.push(avow.trl)
+      res.suffix.trl = avow.trl
+    } else if (a == data.suffix) {
+      res.suffix = null
+    }
     if (tasa.includes(data.suffix)) res.suffix = null
-    if ('འ' == data.suffix) res.suffix = null
+    if (data.secsuf) {
+      let secsuf = letter[data.secsuf]
+      let asecsuf = [secsuf.trl, 'a'].join('')
+      stack.push(asecsuf)
+    }
     stack.push(pretty(res))
   }
 

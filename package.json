@@ -1,8 +1,12 @@
 {
   "name": "cholok",
-  "version": "0.1.1",
-  "description": "fonetic transliteration for Tibetan",
+  "version": "0.1.2",
+  "description": "phonetic transcription for Tibetan",
   "main": "dist/index.js",
+  "author": "Michael Bykov <m.bykov@gmail.com>",
+  "copyright": "© 2018, Michael Bykov",
+  "license": "GPL-3.0",
+  "homepage": "http://diglossa.org/tibetan",
   "scripts": {
     "start": "npm run build && node dist/run",
     "prebuild": "npm run clean",

@@ -38,7 +38,7 @@ let tests = [
   ['subfix', 'རླ་', 'ṛa-ḷatak-la'],
   ['subfix', 'སླུ་', 'sa-ḷatak-la-ŝapkyu-lu'],
   ['subfix', 'རྡོག་', 'ṛa-datak-da-naro-do-ḳʰa-doḳʰ'],
-  ['subfix', 'དོགས་', 'ṭʰa-naro-ṭʰo-ḳʰa-ṭʰoḳʰ'],
+  ['subfix', 'དོགས་', 'ṭʰa-naro-ṭʰo-ḳʰa-sa-ṭʰoḳʰ'],
   ['subfix', 'ཟླ་', 'ṣa-ḷatak-nda'],
   ['subfix', 'སྐུ་ཟླ་', 'sa-katak-ka-ŝapkyu-ku.ṣa-ḷatak-nda'],
   ['subfix', '', ''],
@@ -53,11 +53,28 @@ let tests = [
   ['suffix', 'ལན་', 'ḷa-ṇa-ḷëṇ'],
   ['suffix', 'དལ་', 'ṭʰa-ḷa-ṭʰëḷ'],
   ['suffix', 'མས་', 'ṃa-sa-ṃë'], // shold be long
+  ['suffix', '', ''],
+  ['suffix', 'བྱའུ་', 'p̣ʰa-yatak-c̣ʰa-ạ-ŝapkyu-u-c̣ʰau'],
+  ['suffix', 'བྱའི་', 'p̣ʰa-yatak-c̣ʰa-ạ-kiku-i-c̣ʰai'],
+  ['suffix', 'དགའ་', 'ṭʰao-ga-ạ-ga'],
+  ['suffix', 'དག་', 'ṭʰa-ḳʰa-ṭʰaḳʰ'],
+  ['suffix', 'རྗེས་འཇུག་', 'ṛa-jatak-ja-ḋeŋ̣bu-je-sa-je.ạo-nja-ŝapkyu-nju-ḳʰa-njuḳʰ'], // suffix
+  ['secsuf', 'རིགས་', 'ṛa-kiku-ṛi-ḳʰa-sa-ṛiḳʰ'],
+  // ['secsuf', 'རིཌ་', ''],
+  ['secsuf', 'གསུང་', 'ḳʰao-sa-ŝapkyu-su-ŋ̣a-suŋ̣'],
+  ['secsuf', 'གསུངས་', 'ḳʰao-sa-ŝapkyu-su-ŋ̣a-sa-suŋ̣'],
+  ['secsuf', '', ''],
+  ['suffix', '', ''],
   ['prefix', '', ''],
+  ['prefix', 'སྔོན་འཇུག་', 'sa-ŋatak-ŋa-naro-ŋo-ṇa-ŋöṇ.ạo-nja-ŝapkyu-nju-ḳʰa-njuḳʰ'],
   ['prefix', 'གནས་', 'ḳʰao-na-sa-në'],
   ['prefix', 'གཏོང་', 'ḳʰao-ta-naro-to-ŋ̣a-toŋ̣'],
   ['prefix', 'གཅོད་', 'ḳʰao-ca-naro-co-ṭʰa-cö'],
   ['prefix', 'དགར་', 'ṭʰao-ga-ṛa-gaṛ'],
+  ['prefix', '', ''],
+  ['prefix', '', ''],
+  ['prefix', 'འཇལ་', 'ạo-nja-ḷa-njëḷ'],
+  ['prefix', 'འགའ་', 'ạo-nga-ạ-nga'],
   ['prefix', 'མཇལ་', 'ṃao-nja-ḷa-njëḷ'],
   ['prefix', 'གདའ་', 'ḳʰao-da-ạ-da'],
   ['prefix', 'འབའ་', 'ạo-nba-ạ-nba'],
@@ -69,9 +86,15 @@ let tests = [
   ['prefix', 'མེ་མདའ་', 'ṃa-ḋeŋ̣bu-ṃe.ṃao-nda-ạ-nda'], // ṃenda
   ['prefix', 'མཛའ་', 'ṃao-ndza-ạ-ndza'],
   ['prefix', 'དབང་', 'ṭʰao-wa-ŋ̣a-waŋ̣'],
-  ['prefix', '', ''],
+  ['prefix', 'དབྱར་', 'ṭʰao-wa-yatak-ya-ṛa-yaṛ'],
+  ['prefix', 'གཡར', 'ḳʰao-ỵa-ṛa-ỵaṛ'],
+  ['prefix', 'དབུ་', 'ṭʰao-wa-ŝapkyu-u'],
+  ['prefix', 'དབུ་མ་', 'ṭʰao-wa-ŝapkyu-u.ṃa'],
+  ['prefix', 'དབྱིངས་', 'ṭʰao-wa-yatak-ya-kiku-yi-ŋ̣a-sa-yiŋ̣'],
+  ['prefix', 'འགྱུར་', 'ạo-nga-yatak-ngya-ŝapkyu-ngyu-ṛa-ngyuṛ'],
   ['prefix', '', ''],
   ['prefix', 'འདོག་', 'ạo-nda-naro-ndo-ḳʰa-ndoḳʰ'],
+  ['prefix', 'གྱུརཏ་', 'ḳʰa-yatak-ḳʰya-ŝapkyu-ḳʰyu-ṛa-ta-ḳʰyuṛ'], // ancient spelling
 
   // ['other', 'ནས་ - ནེ་ - ནཏ་', ''], - ne (long, means from), ne (middle), ne (short)
   ['other', '', ''],
@@ -84,7 +107,6 @@ forEach(tests)
   .it('test %s %s %s ', (name, tib, cumexp) => {
     if (!tib) return
     let cum = jolog(tib, true)
-    // log('cum------------------------------', cum)
     assert.equal(cum, cumexp)
     let trl = jolog(tib)
     let trlexp = cumexp.split('.').map(str=>{return _.last(str.split('-'))} ).join('.')
