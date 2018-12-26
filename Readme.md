@@ -71,6 +71,7 @@ Options:
 ````javascript
 $ git clone https://github.com/mbykov/cholok
 $ cd cholok
+$ npm install
 $ npm start འཇུག་
 $ npm start འཇུག་ true (cumulative)
 $ npm test
