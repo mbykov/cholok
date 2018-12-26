@@ -38,6 +38,8 @@ look more in [test](test/test.js)
 
 ## cholok scheme:
 
+| sym | trl | sym | trl | sym | trl | sym | trl |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | ཀ | ka | ཁ | kʰa | ག | ḳʰa | ང | ŋ̣a |
 | ཅ | ca | ཆ | cʰa | ཇ | c̣ʰa | ཉ | ṇ̃a |
 | ཏ | ta | ཐ | tʰa | ད | ṭʰa | ན | ṇa |
