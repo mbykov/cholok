@@ -68,12 +68,14 @@ Options:
 
 
 
-## API
-
 ````javascript
-npm start འཇུག་
-npm test
+$ git clone https://github.com/mbykov/cholok
+$ cd cholok
+$npm start འཇུག་
+$ npm test
 ````
+
+## API
 
 ````javascript
 import cholok from 'cholok'
