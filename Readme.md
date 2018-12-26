@@ -11,7 +11,7 @@ The Cholok will change as comments and suggestions are received.
 
 ## some examples from the test suite:
 
-look more in [test](test/test.js)
+look more in [test/test.js](test/test.js)
 
  -  རྐ་རྕ་ ṛa-katak-ka.ṛa-catak-ca
  -  རྒ་སྡ་ ṛa-gatak-ga.sa-datak-da
