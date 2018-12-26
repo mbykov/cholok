@@ -169,7 +169,7 @@ function translit(data, cumul) {
   let main
   if (data.prefix) {
     let pref = letter[data.prefix]
-    main = _.clone(letter[data.main])
+    main = getLetter(data.main)
     if (main.col == 3) main.trl = voiced[main.row]
     else if (main.col == 4 && main.row < 5) main.trl = nasalHigh[main.row]
     let apref = [pref.trl, 'ao'].join('')
@@ -189,14 +189,14 @@ function translit(data, cumul) {
     let superfix = letter[data.superfix]
     let asuperfix = [superfix.trl, 'a'].join('')
     stack.push(asuperfix)
-    main = _.clone(lower[data.main])
+    main = getLower(data.main)
     if (main.col == 3) main.trl = voiced[main.row]
     else if (main.col == 4) main.trl = nasalHigh[main.row]
     let amain = [main.trl, 'a'].join('')
     let maintak = [amain, 'tak'].join('')
     stack.push(maintak)
   } else {
-    if (!main) main = _.clone(letter[data.main])
+    if (!main) main = getLetter(data.main)
   }
 
   res.main = main
@@ -242,7 +242,7 @@ function translit(data, cumul) {
     res.vow = {trl: 'a'}
   }
   if (data.suffix) {
-    let suffix = _.clone(letter[data.suffix])
+    let suffix = getLetter(data.suffix) //_.clone(letter[data.suffix])
     res.suffix = suffix
     let asuf = [suffix.trl, 'a'].join('')
     if (kanapamara.includes(data.suffix)) {
@@ -281,4 +281,20 @@ function pretty(res) {
   str = [str, res.vow.trl].join('')
   if (res.suffix) str = [str, res.suffix.trl].join('')
   return str
+}
+
+function getLetter(str) {
+  let tmp =letter[str]
+  let res
+  if (tmp) res = _.clone(tmp)
+  else res = {trl: str}
+  return res
+}
+
+function getLower(str) {
+  let tmp =lower[str]
+  let res
+  if (tmp) res = _.clone(tmp)
+  else res = {trl: str}
+  return res
 }
