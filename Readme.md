@@ -51,6 +51,19 @@ look more in [test/test.js](test/test.js)
 | ར | ṛa | ལ | ḷa | ཤ | ŝa | ས | sa |
 | ཧ | ha | ཨ | a |
 
+##  command line interface for cholok
+
+
+````javascript
+sudo npm -g install cholok-cli
+$ cholok -c ཆོས་ཀློག་
+=> cʰö.loḳʰ
+$ cholok
+Options:
+  -c, --cumulative  Cumulative output
+````
+
+
 
 ## API
 
