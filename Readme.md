@@ -81,7 +81,7 @@ let result = cholok(str, cumulative)
 console.log(result)
 ````
 
-where cumulative shoult be true or false
+where cumulative should be true or false
 
 Ex:
 
