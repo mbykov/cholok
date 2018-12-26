@@ -7,7 +7,7 @@ The basic principle - a script should be intuitive. Transcriptions, transliterat
 
 So, a low tone is indicated by a dot below. Retroflexes - a dot above, unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced. And so on.
 
-The Cholok script is written following the lectures of [Geshe M. Roach](https://www.youtube.com/playlist?list=PL1KVm5jgTljTatThw2YLw7nrf05XYBcZV) and the book Tibetan Language, Vol I by Thonden Lobsang.
+The Cholok script is written following the [lectures](https://www.youtube.com/playlist?list=PL1KVm5jgTljTatThw2YLw7nrf05XYBcZV) of Geshe M. Roach and the book Tibetan Language, Vol I by Thonden Lobsang.
 
 The Cholok will change as comments and suggestions are received.
 
