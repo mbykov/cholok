@@ -3,7 +3,7 @@
 
 Cholok - phonetic transcription for Tibetan. ཆོས་ཀློག་ - cʰö.loḳʰ - means recite, read scriptures, prayers, read aloud.
 
-The basic principle - a script should be intuitive. Transcriptions, transliterations are always evil, but if they still need to be studied, then this is overkill (Cf. Wylie and  other horror).
+The basic principle - a script should be intuitive. Transcriptions, transliterations are always evil, but if they still need to be studied, then this is overkill (Cf. Wylie and  other horror). Why horror? One example - ལྷ་ས་ - city Lhasa (in Wylie transliteration) pronounced like Hlasa, at least by its inhabitants. ($ cholok: ལྷ་ས་ - hḷa.sa)
 
 So, a low tone is indicated by a dot below. Retroflexes - a dot above, unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced. And so on.
 
