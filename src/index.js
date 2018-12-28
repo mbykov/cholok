@@ -3,23 +3,25 @@ import _ from 'lodash'
 import {letter, lower, ralasa, yaralaa, vowel, wasur, kanatanapamaaralasa, kanapamara, tanalasa, tasa, umlaut, sa, sama, maa, la, a, voiced, nasalHigh, up2rows} from './lib/data'
 let log = console.log
 let tsek = '་'
+let shad = '།'
 export default function cholok(str, cumul) {
   let result  = []
-  let syllables = str.split(tsek)
-  syllables.forEach(syl=> {
-    if (!syl) return
-    let res = syllable(syl)
-    let trl = translit(res, cumul)
-    result.push(trl)
+  let sgs = segments(str)
+  sgs.forEach(seg=> {
+    if (seg.tib) {
+      let res = syllable(seg)
+      let trl = translit(res, cumul)
+      result.push(trl)
+    } else {
+      result.push(seg.space)
+    }
   })
-  return result.join('.')
+  return result.join('')
 }
 
-function syllable(str) {
-  let trl
+function syllable(seg) {
   let point
-
-  let letters = str.split('')
+  let letters = seg.tib
   let main, mains = []
   let prefix, superfix, prefs = []
   let suffix, secsuf, avow
@@ -169,6 +171,8 @@ function translit(data, cumul) {
   let main
   if (data.prefix) {
     let pref = letter[data.prefix]
+    // if (!pref) log('=====', data)
+
     main = getLetter(data.main)
     if (main.col == 3) main.trl = voiced[main.row]
     else if (main.col == 4 && main.row < 5) main.trl = nasalHigh[main.row]
@@ -298,4 +302,26 @@ function getLower(str) {
   if (tmp) res = _.clone(tmp)
   else res = {trl: str}
   return res
+}
+
+function segments (str) {
+  let syms = str.split('')
+  let segs = []
+  let seg = []
+  let other = []
+  syms.forEach(sym=> {
+    if (letter[sym] || lower[sym] || vowel[sym]) {
+      seg.push(sym)
+    } else {
+      if (seg.length) segs.push({tib: seg})
+      seg = []
+      let space
+      if (sym == tsek) space =  {space: '.'}
+      else if (sym == shad) space =  {space: '|'}
+      else space = {space: sym}
+      segs.push(space)
+    }
+  })
+  if (seg.length) segs.push({tib: seg})
+  return segs
 }
