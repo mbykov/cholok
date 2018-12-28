@@ -44,9 +44,9 @@ lower['ྫ'] = {trl: 'ç̣ʰ', row: 5, col: 3} //     ྫ
 lower['ྱ'] = {trl: 'y', row: 6, col: 4} //     ྱ
 lower['ྲ'] = {trl: 'ṛ', row: 7, col: 1} //    ྲ
 lower['ླ'] = {trl: 'ḷ', row: 7, col: 2} //    ླ
-lower[''] = {trl: 'k', row: 1, col: 1}
-lower[''] = {trl: 'k', row: 1, col: 1}
-
+lower['ྷ'] = {trl: 'h', row: 8, col: 1} //    ྷ
+lower[''] = {trl: '', row: 1, col: 1}
+lower[''] = {trl: '', row: 1, col: 1}
 
 //   ྱ   d  fྱ
 

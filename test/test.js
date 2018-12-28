@@ -20,6 +20,7 @@ let tests = [
   ['superfix', 'སྒི་', 'sa-gatak-ga-kiku-gi'],
   ['superfix', 'སྒ་', 'sa-gatak-ga'],
   ['superfix', 'སྣོ་', 'sa-natak-na-naro-no'],
+  ['superfix', 'ལྷ་ས་', 'ḷa-hatak-hḷa.sa'],
   ['subfix', '', ''],
   ['subfix', 'ཀྱ་', 'ka-yatak-kya'],
   ['subfix', 'ཁྱ་', 'kʰa-yatak-kʰya'],

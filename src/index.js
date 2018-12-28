@@ -195,6 +195,7 @@ function translit(data, cumul) {
     let amain = [main.trl, 'a'].join('')
     let maintak = [amain, 'tak'].join('')
     stack.push(maintak)
+    if (superfix.trl == 'ḷ' && main.trl == 'h') main.trl = 'hḷ' // excl: l-h -> h-l
   } else {
     if (!main) main = getLetter(data.main)
   }
