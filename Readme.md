@@ -1,17 +1,15 @@
 # cholok
 
 
-Cholok - phonetic transcription for Tibetan. ཆོས་ཀློག་ - cʰö.loḳʰ - means recite, read scriptures, prayers, read aloud.
+Cholok - phonetic transcription for Tibetan. ཆོས་ཀློག་ - cʰö.loḳʰ - means recite, read scriptures, prayers, read aloud. Cholok is not a linguistic program. Cholok models pronunciation according to ancient grammars, not modern, and not pronunciation from the point of view of modern linguistics. Cholok is for beginners to learn Tibetan, who are not sure of the correctness of pronunciation according ancient rules. Of course, the Latin sounds can not correctly portray the sound of the Tibetan language, so that Cholok still remains only a rough approximation.
 
 The basic principle - a script should be intuitive. Transcriptions, transliterations are always evil, but if they still need to be studied, then this is overkill (Cf. Wylie and  other horror). Why horror? One example - ལྷ་ས་ - city Lhasa (in Wylie transliteration) should be pronounced like Hlasa ($ cholok: ལྷ་ས་ - hḷa.sa), at least according to the rules of Thonmi Sambhota and later traditional grammars.
 
-So, a low tone is indicated by a dot below. Retroflexes - a dot above. Unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced. And so on.
-
-Cholok is for beginners to learn Tibetan, who are not sure of the correctness of pronunciation. Of course, the Latin sounds can not correctly portray the sound of the Tibetan language, so that Cholok still remains only a rough approximation.
+So, a low tone is indicated by a dot below. Retroflexes - a dot above. NB: unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced. And so on.
 
 The Cholok script is written following the [lectures](https://www.youtube.com/playlist?list=PL1KVm5jgTljTatThw2YLw7nrf05XYBcZV) of Geshe M. Roach and the book "Modern Tibetan Language", Vol I. by Thonden Lobsang.
 
-The Cholok will change as comments and suggestions are received.
+The Cholok script will change as comments and suggestions are received.
 
 ## some examples from the test suite:
 
