@@ -55,9 +55,13 @@ look more in [test/test.js](test/test.js)
 
 ##  command line interface for cholok
 
+[cholok-cli](https://github.com/mbykov/cholok-cli) is a separate utility that is convenient to install globally
 
 ````javascript
 $ sudo npm -g install cholok-cli
+````
+
+````javascript
 $ cholok -c ཆོས་ཀློག་
 => cʰa-naro-cʰo-sa-cʰö.ka-ḷatak-la-naro-lo-ḳʰa-loḳʰ
 $ cholok ཆོས་ཀློག་
