@@ -1,11 +1,11 @@
 {
   "name": "cholok",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "phonetic transcription for Tibetan",
   "main": "dist/index.js",
-  "author": "Michael Bykov <m.bykov@gmail.com>",
+  "author": "",
   "copyright": "© 2018, Michael Bykov",
-  "license": "GPL-3.0",
+  "license": "ISC",
   "homepage": "http://diglossa.org/tibetan",
   "scripts": {
     "start": "npm run build && node dist/run",
@@ -13,14 +13,11 @@
     "build": "cross-env NODE_ENV=production babel -s true src -d dist",
     "clean": "rm -rf dist",
     "run": "node dist/run",
-    "test_": "echo \"Error: no test specified\" && exit 1",
     "test_": "cross-env NODE_ENV=test mocha -g $FILTER -c -R dot -b --timeout 5000 'test/**/*.test.js' --compilers js:babel-register --check-leaks --no-deprecation",
     "test": "cross-env NODE_ENV=test mocha -c -R spec -b 'test/test.js' --compilers js:babel-register --check-leaks --no-deprecation",
     "lint": "eslint src test"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "babel": {
     "presets": [
       "env"
@@ -36,6 +33,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
+    "debug": "^4.1.1",
     "mocha": "^5.2.0",
     "mocha-each": "^1.1.0"
   },

@@ -1,13 +1,13 @@
 //
 import _ from 'lodash'
-import {letter, lower, ralasa, yaralaa, vowel, wasur, kanatanapamaaralasa, kanapamara, tanalasa, tasa, umlaut, sa, sama, maa, la, a, voiced, nasalHigh, up2rows} from './lib/data'
+import {tsek, shad, letter, lower, ralasa, yaralaa, vowel, wasur, kanatanapamaaralasa, kanapamara, tanalasa, tasa, umlaut, sa, sama, maa, la, a, voiced, nasalHigh, up2rows} from './lib/data'
 let log = console.log
-let tsek = '་'
-let shad = '།'
+let debug = require('debug')('app')
+
 export default function cholok(str, cumul) {
   let result  = []
-  let sgs = segments(str)
-  sgs.forEach(seg=> {
+  let segs = segments(str)
+  segs.forEach((seg, idx)=> {
     if (seg.tib) {
       let res = syllable(seg)
       let trl = translit(res, cumul)
@@ -21,100 +21,101 @@ export default function cholok(str, cumul) {
 
 function syllable(seg) {
   let point
-  let letters = seg.tib
+  let syms = seg.tib
   let main, mains = []
   let prefix, superfix, prefs = []
   let suffix, secsuf, avow
   let sufs = []
 
-  let ult = letters[letters.length-1]
-  if (letters.length > 3 && _.keys(vowel).includes(ult)) {
-    let penult = letters[letters.length-2]
+  let ult = _.last(syms)
+  // if (syms.length > 3 && isVowel(ult)) {
+  if (isVowel(ult)) {
+    let penult = syms[syms.length-2]
     if (a == penult) {
       avow = ult
-      letters.pop()
+      syms.pop()
     }
   }
 
-  let vows = _.intersection(letters, _.keys(vowel))
+  let vows = _.intersection(syms, _.keys(vowel))
   let vow, indexVow
-  if (vows.length == 1) vow = vows[0], indexVow = letters.indexOf(vow)
-  else if (vows.length > 1) throw new Error('TOO MANY VOWELS')
+  if (vows.length == 1) vow = vows[0], indexVow = syms.indexOf(vow)
+  else if (vows.length > 1) return {errs: ['TOO MANY VOWELS']}
 
-  let isWasur = letters.includes(wasur)
+  let isWasur = syms.includes(wasur)
 
-  let lowers = _.intersection(letters, _.keys(lower))
-  let subfixes = _.intersection(letters, yaralaa)
+  let lowers = _.intersection(syms, _.keys(lower))
+  let subfixes = _.intersection(syms, yaralaa)
   let subfix, indexSubfix
-  if (subfixes.length == 1) subfix = subfixes[0], indexSubfix = letters.indexOf(subfix)
+  if (subfixes.length == 1) subfix = subfixes[0], indexSubfix = syms.indexOf(subfix)
 
   if (isWasur) { // རྭ་ // རྩྭ་
-    let indWasur = letters.indexOf(wasur)
+    let indWasur = syms.indexOf(wasur)
     point = 'wasur'
-    main = letters[indWasur - 1]
-    prefix = letters[indWasur - 2]
-    sufs = letters.slice(indWasur+1)
+    main = syms[indWasur - 1]
+    prefix = syms[indWasur - 2]
+    sufs = syms.slice(indWasur+1)
   } else if (lowers.length) {
     point = 1
     let firstLow = lowers[0]
-    let indexFirstLow = letters.indexOf(firstLow)
-    prefs = letters.slice(0, indexFirstLow)
+    let indexFirstLow = syms.indexOf(firstLow)
+    prefs = syms.slice(0, indexFirstLow)
     if (vow && subfix) { // ex: རྡྱོག་ ; འརྡྱོག་
       point = 'vow&&sub'
-      subfix = letters[indexVow - 1]
-      main = letters[indexVow - 2]
-      prefs = letters.slice(0, indexVow - 2)
-      sufs = letters.slice(indexVow+1)
+      subfix = syms[indexVow - 1]
+      main = syms[indexVow - 2]
+      prefs = syms.slice(0, indexVow - 2)
+      sufs = syms.slice(indexVow+1)
     } else if (vow) { // superfix: // ex: རྡོག་
       point = 3
-      main = letters[indexVow - 1]
-      prefs = letters.slice(0, indexVow - 1)
-      sufs = letters.slice(indexVow+1)
+      main = syms[indexVow - 1]
+      prefs = syms.slice(0, indexVow - 1)
+      sufs = syms.slice(indexVow+1)
     } else if (subfix) { // ex:     // ex: ཤསྟྲ་
       point = 'sub'
-      main = letters[indexSubfix - 1]
-      prefs = letters.slice(0, indexSubfix - 1)
-      sufs = letters.slice(indexSubfix+1)
+      main = syms[indexSubfix - 1]
+      prefs = syms.slice(0, indexSubfix - 1)
+      sufs = syms.slice(indexSubfix+1)
     } else { // superfixes:  // རྐ་ // རྡག་ // འརྡག་ // རྣ་ // ལྒ་ // ཤྰསྟྲ
       point = 4
       let lowLast = lowers.slice(-1)[0]
-      let indexLowLast = letters.indexOf(lowLast)
-      main = letters[indexLowLast]
-      prefs = letters.slice(0, indexLowLast)
-      sufs = letters.slice(indexLowLast+1)
+      let indexLowLast = syms.indexOf(lowLast)
+      main = syms[indexLowLast]
+      prefs = syms.slice(0, indexLowLast)
+      sufs = syms.slice(indexLowLast+1)
     }
   } else if (subfix) { // no lowers // ex: ཁྱི་ ka-yatak-kiku // but not གིྱ ka-kiku-yatak // ཁྱིས་ //  འཁྱིས་  // ex: ཁྱ་ // སྲ་ // མྲ་
     point = 8
-    main = letters[indexSubfix - 1]
-    prefs = letters.slice(0, indexSubfix - 1)
+    main = syms[indexSubfix - 1]
+    prefs = syms.slice(0, indexSubfix - 1)
     if (vow) {
-      sufs = letters.slice(indexVow+1)
+      sufs = syms.slice(indexVow+1)
     } else {
-      sufs = letters.slice(indexSubfix+1)
+      sufs = syms.slice(indexSubfix+1)
     }
     if (main == a) { // བྱའུ་
     }
   } else { // no lowers, no subfixed, no superfix
     if (vow) { // ex: དོགས་
       point = 5
-      main = letters[indexVow-1]
-      prefs = letters.slice(0, indexVow-1) // up to vow
-      sufs = letters.slice(indexVow+1)
+      main = syms[indexVow-1]
+      prefs = syms.slice(0, indexVow-1) // up to vow
+      sufs = syms.slice(indexVow+1)
       if (main == a) { // དགའོ་
       }
     } else { // ex: དགས་
       point = 6
-      if (letters.length > 4) throw new Error('TOO MANY LETTERS IN PLAIN WF')
-      if (letters.length == 1) main = letters[0] // ex: ད་
-      else if (letters.length == 2) { //  དས་ // རག་ // གད་// མས་
+      if (syms.length > 4) throw new Error('TOO MANY SYMS IN PLAIN WF')
+      if (syms.length == 1) main = syms[0] // ex: ད་
+      else if (syms.length == 2) { //  དས་ // རག་ // གད་// མས་
         point = 7
-        main = letters[0]
-        suffix = letters[1]
-      } else if (letters.length == 3 || letters.length == 4) { // prefixes: // ex: འདགས་
+        main = syms[0]
+        suffix = syms[1]
+      } else if (syms.length == 3 || syms.length == 4) { // prefixes: // ex: འདགས་
         point = 9
-        prefix = letters[0]
-        main = letters[1]
-        sufs = letters.slice(2)
+        prefix = syms[0]
+        main = syms[1]
+        sufs = syms.slice(2)
       }
     }
   }
@@ -136,7 +137,7 @@ function syllable(seg) {
     else if (sufs.length == 1) suffix = sufs[0]
   }
 
-  let data = {point: point, prefix: prefix, superfix: superfix, main: main, subfix: subfix, vow: vow, suffix: suffix, secsuf: secsuf} // , isWasur: isWasur
+  let data = {point: point, prefix: prefix, superfix: superfix, main: main, subfix: subfix, vow: vow, suffix: suffix, secsuf: secsuf, errs: [], syms: syms} // , isWasur: isWasur
   if (isWasur) data.wasur = true
   if (avow) data.avow = avow
 
@@ -144,41 +145,40 @@ function syllable(seg) {
     if (!data[key]) delete data[key]
   }
   if (prefs && prefs.length > 2) {
-    log(data)
-    throw new Error('TOO MANY PREFS')
+    data.errs.push('TOO MANY PREFS')
+    // throw new Error('TOO MANY PREFS')
   }
   if (subfixes.length > 1) {
-    log(data)
-    throw new Error('TOO MANY SUBFIXES')
+    data.errs.push('TOO MANY SUBFIXES')
   }
 
   if (sufs.length > 2) {
-    log(data)
-    throw new Error('TOO MANY SUFFIXES')
+    data.errs.push('TOO MANY SUFFIXES')
   }
   if (!main) {
-    log(data)
-    throw new Error('NO MAIN!')
+    data.errs.push('NO MAIN!')
   }
 
   return data
 }
 
 function translit(data, cumul) {
-  // log('=========DATA:', data)
+  debug('DATA:', data)
+  if (data.errs.length) {
+    return 'unreal sequence'
+  }
   let res = {}
   let stack = []
   let main
   if (data.prefix) {
     let pref = letter[data.prefix]
-    // if (!pref) log('=====', data)
 
     main = getLetter(data.main)
     if (main.col == 3) main.trl = voiced[main.row]
     else if (main.col == 4 && main.row < 5) main.trl = nasalHigh[main.row]
     let apref = [pref.trl, 'ao'].join('')
     if (maa.includes(data.prefix)) {
-      main.trl = ['n', main.trl].join('')
+      main.trl = ['`', main.trl].join('') // 'n'  '  ’ '
     }
     if (a == data.prefix) {
       apref = [pref.trl, 'o'].join('')
@@ -199,7 +199,7 @@ function translit(data, cumul) {
     let amain = [main.trl, 'a'].join('')
     let maintak = [amain, 'tak'].join('')
     stack.push(maintak)
-    if (superfix.trl == 'ḷ' && main.trl == 'h') main.trl = 'hḷ' // excl: l-h -> h-l
+    if (superfix.trl == 'l' && main.trl == 'h') main.trl = 'hl' // excl: l-h -> h-l
   } else {
     if (!main) main = getLetter(data.main)
   }
@@ -236,6 +236,7 @@ function translit(data, cumul) {
     }
     stack.push(pretty(res))
   }
+  // debug('________BEFORE', stack)
   if (data.vow) {
     let vow = _.clone(vowel[data.vow])
     stack.push(vow.descr)
@@ -249,24 +250,37 @@ function translit(data, cumul) {
   if (data.suffix) {
     let suffix = getLetter(data.suffix) //_.clone(letter[data.suffix])
     res.suffix = suffix
-    let asuf = [suffix.trl, 'a'].join('')
-    if (kanapamara.includes(data.suffix)) {
-    } else if (tanalasa.includes(data.suffix)) {
-      res.vow.trl = umlaut[res.vow.trl] || res.vow.trl
-    } else if (a == data.suffix) {
-      asuf = suffix.trl
-    } else {
-      log('IMPOSSIMBLE SUFFIX', data)
-    }
-    stack.push(asuf)
+
     if (data.avow) {
       let avow = vowel[data.avow]
-      stack.push(avow.descr)
-      stack.push(avow.trl)
-      res.suffix.trl = avow.trl
-    } else if (a == data.suffix) {
-      res.suffix = null
+      debug('Avow', avow, 'Stack', stack, 'Res', res)
+      if (data.suffix == a) {
+        res.vow = null
+        stack.push(res.suffix.trl)
+        stack.push(avow.descr)
+        stack.push(avow.trl)
+        if (avow.trl == 'i') {
+          res.suffix.trl = 'ä:'
+        } else {
+          res.suffix.trl = avow.trl
+        }
+      }
+      debug('Stack2', stack)
+      debug('PRETTY', pretty(res))
+    } else {
+      let asuf = [suffix.trl, 'a'].join('')
+      if (kanapamara.includes(data.suffix)) {
+        //
+      } else if (tanalasa.includes(data.suffix)) {
+        res.vow.trl = umlaut[res.vow.trl] || res.vow.trl
+      } else if (a == data.suffix) {
+        asuf = suffix.trl
+      } else {
+        return 'IMPOSSIBLE SUFFIX'
+      }
+      stack.push(asuf)
     }
+
     if (tasa.includes(data.suffix)) res.suffix = null
     if (data.secsuf) {
       let secsuf = letter[data.secsuf]
@@ -277,6 +291,7 @@ function translit(data, cumul) {
   }
 
   let trl = (cumul) ? stack.join('-') : pretty(res)
+  trl = trl.replace('aa', 'a').replace('aä', 'ä') //.replace(/\.$/, '')
   return trl
 }
 
@@ -289,7 +304,7 @@ function pretty(res) {
 }
 
 function getLetter(str) {
-  let tmp =letter[str]
+  let tmp = letter[str]
   let res
   if (tmp) res = _.clone(tmp)
   else res = {trl: str}
@@ -308,7 +323,6 @@ function segments (str) {
   let syms = str.split('')
   let segs = []
   let seg = []
-  let other = []
   syms.forEach(sym=> {
     if (letter[sym] || lower[sym] || vowel[sym]) {
       seg.push(sym)
@@ -324,4 +338,8 @@ function segments (str) {
   })
   if (seg.length) segs.push({tib: seg})
   return segs
+}
+
+function isVowel(sym) {
+  return _.keys(vowel).includes(sym)
 }
