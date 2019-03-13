@@ -98,7 +98,7 @@ let tests = [
   ['prefix', 'གྱུརཏ་', 'ḳʰa-yatak-ḳʰya-ŝapkyu-ḳʰyu-ra-ta-ḳʰyur.'], // ancient spelling
 
   // ['other', 'ནས་ - ནེ་ - ནཏ་', '.'], - ne (long, means from), ne (middle), ne (short)
-  ['other', '', ''],
+  ['other', 'འདི་བླ་མའམ།', 'ao-`da-kiku-`di.p̣ʰa-latak-la.mam|'],
   ['other', '', ''],
   ['other', '', ''],
 

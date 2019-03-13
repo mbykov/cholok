@@ -26,15 +26,20 @@ function syllable(seg) {
   let prefix, superfix, prefs = []
   let suffix, secsuf, avow
   let sufs = []
+  let quest
 
   let ult = _.last(syms)
+  let penult = syms[syms.length-2]
   // if (syms.length > 3 && isVowel(ult)) {
   if (isVowel(ult)) {
-    let penult = syms[syms.length-2]
     if (a == penult) {
       avow = ult
       syms.pop()
     }
+  } else if (penult == a && ult == maa[0]) {
+    syms.pop()
+    syms.pop()
+    quest = {trl: 'am'}
   }
 
   let vows = _.intersection(syms, _.keys(vowel))
@@ -140,6 +145,7 @@ function syllable(seg) {
   let data = {point: point, prefix: prefix, superfix: superfix, main: main, subfix: subfix, vow: vow, suffix: suffix, secsuf: secsuf, errs: [], syms: syms} // , isWasur: isWasur
   if (isWasur) data.wasur = true
   if (avow) data.avow = avow
+  if (quest) data.quest = quest
 
   for (let key in data) {
     if (!data[key]) delete data[key]
@@ -178,7 +184,7 @@ function translit(data, cumul) {
     else if (main.col == 4 && main.row < 5) main.trl = nasalHigh[main.row]
     let apref = [pref.trl, 'ao'].join('')
     if (maa.includes(data.prefix)) {
-      main.trl = ['`', main.trl].join('') // 'n'  '  ’ '
+      main.trl = ['`', main.trl].join('') // 'n'  '  ’  °'  ???
     }
     if (a == data.prefix) {
       apref = [pref.trl, 'o'].join('')
@@ -291,6 +297,7 @@ function translit(data, cumul) {
   }
 
   let trl = (cumul) ? stack.join('-') : pretty(res)
+  if (data.quest) trl = [trl, data.quest.trl].join('')
   trl = trl.replace('aa', 'a').replace('aä', 'ä') //.replace(/\.$/, '')
   return trl
 }

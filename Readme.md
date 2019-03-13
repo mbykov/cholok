@@ -5,7 +5,7 @@ Cholok - phonetic transcription for Tibetan. ཆོས་ཀློག་ - cʰö
 
 The basic principle - a script should be intuitive. Transcriptions, transliterations are always evil, but if they still need to be studied, then this is overkill (Cf. Wylie and  other horror). Why horror? One example - ལྷ་ས་ - city Lhasa (in Wylie transliteration) should be pronounced like Hlasa ($ cholok: ལྷ་ས་ - hḷa.sa), at least according to the rules of Thonmi Sambhota and later traditional grammars.
 
-So, a low tone is indicated by a dot below. Retroflexes - a dot above. NB: unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced. And so on.
+So, a low tone is indicated by a dot below. Retroflexes - a dot above. NB: unvoiced sounds are indicated by unvoiced latin consonants, but voiced - by voiced.
 
 The Cholok script is written following the [lectures](https://www.youtube.com/playlist?list=PL1KVm5jgTljTatThw2YLw7nrf05XYBcZV) of Geshe M. Roach and the book "Modern Tibetan Language", Vol I. by Thonden Lobsang.
 
@@ -42,13 +42,13 @@ look more in [test/test.js](test/test.js)
 
 | sym | trl | sym | trl | sym | trl | sym | trl |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| ཀ | ka | ཁ | kʰa | ག | ḳʰa | ང | ŋ̣a |
-| ཅ | ca | ཆ | cʰa | ཇ | c̣ʰa | ཉ | ṇ̃a |
-| ཏ | ta | ཐ | tʰa | ད | ṭʰa | ན | ṇa |
-| པ | pa | ཕ | pʰa | བ | p̣ʰa | མ | ṃa |
-| ཙ | ça | ཚ | çʰa | ཛ | ç̣ʰa | ཝ | ẉa |
-| ཞ | ṣ̂a | ཟ | ṣa | འ | ạ | ཡ | ỵa |
-| ར | ṛa | ལ | ḷa | ཤ | ŝa | ས | sa |
+| ཀ | ka | ཁ | kʰa | ག | ḳʰa | ང | ŋa |
+| ཅ | ca | ཆ | cʰa | ཇ | c̣ʰa | ཉ | ña |
+| ཏ | ta | ཐ | tʰa | ད | ṭʰa | ན | na |
+| པ | pa | ཕ | pʰa | བ | p̣ʰa | མ | ma |
+| ཙ | ça | ཚ | çʰa | ཛ | ç̣ʰa | ཝ | wa |
+| ཞ | ṣ̂a | ཟ | ṣa | འ | a | ཡ | ya |
+| ར | ra | ལ | la | ཤ | ŝa | ས | sa |
 | ཧ | ha | ཨ | a |
 
 ##  command line interface for cholok
